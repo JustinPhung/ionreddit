@@ -9,6 +9,8 @@ import {DetailsPage} from "../details/details";
 export class RedditsPage{
 
     items: any;
+    category: string;
+    limit: number;
 
     constructor(public navCtrl: NavController, private redditService:RedditService){
 
@@ -18,6 +20,10 @@ export class RedditsPage{
         this.getPosts('sports', 5);
     }
 
+    getDefaults(){
+        this.category = 'sports';
+        this.limit = 10;
+    }
 
     private getPosts( s: string, number: number ) {
         this.redditService.getPosts(s,number).subscribe( response=>{
@@ -29,5 +35,9 @@ export class RedditsPage{
         this.navCtrl.push(DetailsPage, {
             item:item
         });
+    }
+
+    changeCategory(){
+        this.getPosts(this.category, this.limit);
     }
 }
